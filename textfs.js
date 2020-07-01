@@ -41,6 +41,7 @@ if (VERB === 'AddFile') {
     var LocationsTable = HelperFunctions.LoadLocationsTable();
     // Get the file
     // Update tables
+
     
     // Save tables
     HelperFunctions.SaveFilesTable(FilesTable);
