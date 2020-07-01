@@ -1,0 +1,8 @@
+{
+    "disksize": 32,
+    "fs": "TextFS",
+    "ver": "0.1.0",
+    "sector": 512,
+    "encoding": "hex",
+    "heapPointer": 3
+}

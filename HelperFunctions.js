@@ -15,7 +15,7 @@ HelperFunctions.LoadFilesTable = function () {
 };
 
 HelperFunctions.SaveFilesTable = function (jsonObj) {
-    fs.writeFileSync('./files.json', JSON.stringify(jsonObj));
+    fs.writeFileSync('./files.json', JSON.stringify(jsonObj, '\t', 4));
 };
 
 HelperFunctions.LoadLocationsTable = function () {
@@ -23,7 +23,7 @@ HelperFunctions.LoadLocationsTable = function () {
 };
 
 HelperFunctions.SaveLocationsTable = function (jsonObj) {
-    fs.writeFileSync('./locations.json', JSON.stringify(jsonObj));
+    fs.writeFileSync('./locations.json', JSON.stringify(jsonObj, '\t', 4));
 };
 
 module.exports = HelperFunctions;

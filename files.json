@@ -1,0 +1,16 @@
+{
+    "9a1b1424-bb83-11ea-8d19-548d5ad0c153": {
+        "Uuid": "9a1b1424-bb83-11ea-8d19-548d5ad0c153",
+        "FilePath": "123",
+        "Size": 6,
+        "Location": 1,
+        "CreatedAt": 1593598448889
+    },
+    "9c0343c4-bb83-11ea-b03a-548d5ad0c153": {
+        "Uuid": "9c0343c4-bb83-11ea-b03a-548d5ad0c153",
+        "FilePath": "124",
+        "Size": 6,
+        "Location": 2,
+        "CreatedAt": 1593598452088
+    }
+}

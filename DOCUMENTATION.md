@@ -84,7 +84,7 @@ Example:
 
 PropertyName    | Type          | Description
 --------------- | ------------- | ----------
-UUID            | Blob          | UUID v4
+Uuid            | Blob          | UUID v4
 Path            | String(256B)  |
 Size            | UInt64        | How many bytes
 CreatedAt       | UInt64        | Description
@@ -101,5 +101,5 @@ Each record consist of 458 bytes and 1 byte for LF.
 PropertyName    | Type          | Description
 --------------- | ------------- | ----------
 Location        | UInt64        | Description
-Length          | UInt64        | Description
+Span            | UInt64        | Description
 Next            | UInt64        |
