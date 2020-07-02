@@ -26,7 +26,7 @@ if (VERB === 'InitFS') {
 
 if (VERB === 'AddFile') {
     // Generate UUID
-    child_process.exec('uuidgen -t', function (err, stdin, stderr) {
+    child_process.exec('uuidgen -r', function (err, stdin, stderr) {
         if (err) {
             return 1;
         };
@@ -76,7 +76,7 @@ if (VERB === 'AddFile') {
 };
 
 if (VERB === 'GetFile') {
-    var FILEPATH_DEST = ARGS[0];
+    var FILEPATH = ARGS[0];
     var dskimgtxt = HelperFunctions.LoadDiskImage();
     var fsmetadata = JSON.parse(Buffer.from(InternalInstructions.ReadSector(dskimgtxt, 0).replace(/0/g, ' ').trimEnd().replace(/ /g, '0'), 'hex').toString());
     // console.log(fsmetadata);
@@ -84,15 +84,16 @@ if (VERB === 'GetFile') {
     var FilesTable = HelperFunctions.LoadFilesTable();
     var LocationsTable = HelperFunctions.LoadLocationsTable();
     // Get file info
-    var query0 = InternalInstructions.GetFileInfo(FilesTable);
+    var query0 = InternalInstructions.GetFileInfo(FilesTable, FILEPATH);
     if (query0.err !== 0) {
         console.log(`ERROR: Files does not exist.`);
         process.exit(1);
     };
     var fileInfo = query0.fileInfo;
-    var locationStart = fileInfo.Location;
-    var locationLength = LocationsTable[locationStart].Span;
-    var sectorstxt = dskimgtxt.split('\n').slice(locationStart).slice(0, locationLength).join('\n');
+    var sectorsList = InternalInstructions.GetFileSectorList(fileInfo);
+    var sectorstxt = sectorsList.map(function (sectorindex) {
+        return InternalInstructions.ReadSector(dskimgtxt, sectorindex);
+    }).join('');
     var actualdata = Buffer.from(sectorstxt.slice(0, fileInfo.Size * 2), 'hex');
     process.stdout.write(actualdata);
 };

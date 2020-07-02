@@ -57,7 +57,8 @@ InternalInstructions.WriteFSMetadata = function (dskimgtxt, fsmetadata) {
     return newdskimgtxt;
 };
 InternalInstructions.GetFileInfo = function (FilesTable, FilePath) {
-    var query1 = Object.keys(FilesTable).map(x => FilesTable[x]).filter(x => x.Path === FilePath);
+    var query1 = Object.keys(FilesTable).map(x => FilesTable[x]).filter(x => x.FilePath === FilePath);
+    // console.log(Object.keys(FilesTable).map(x => FilesTable[x]).filter(x => x.FilePath));
     if (query1.length > 0) {
         return {
             err: 0,
@@ -69,6 +70,31 @@ InternalInstructions.GetFileInfo = function (FilesTable, FilePath) {
             errMsg: 'File does not exist.'
         };
     };
+};
+InternalInstructions.GetFileSectorList = function (dskimgtxt, filepath, FilesTable, LocationsTable) {
+    var query0 = InternalInstructions.GetFileInfo(FilesTable, FILEPATH);
+    if (query0.err !== 0) {
+        console.log(`ERROR: Files does not exist.`);
+        process.exit(1);
+    };
+    var fileInfo = query0.fileInfo;
+    var locationStart = fileInfo.Location;
+    var listOfSectorGroups = []; // [ { ptr: 4, span: 2} ]
+    var ptrCurrentSector = locationStart;
+    while (ptrCurrentSector !== null) {
+        listOfSectorGroups.push({
+            ptr: ptrCurrentSector,
+            span: LocationsTable[ptrCurrentSector].Span,
+        });
+        ptrCurrentSector += LocationsTable[ptrCurrentSector].Next;
+    };
+    var listOfSectors = []; // [ 4, 5 ]
+    listOfSectorGroups.map(function (secgrp) {
+        for (var i = 0; i < secgrp.span; i++) {
+            listOfSectors.push(secgrp.ptr + i);
+        };
+    });
+    return listOfSectors;
 };
 
 module.exports = InternalInstructions;

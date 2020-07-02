@@ -19,7 +19,6 @@ List of verbs:
 - Defragment
 - GrowSize
 - ShrinkSize
--
 
 ### Verb:
 

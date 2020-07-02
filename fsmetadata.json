@@ -4,5 +4,5 @@
     "ver": "0.1.0",
     "sector": 512,
     "encoding": "hex",
-    "heapPointer": 3
+    "heapPointer": 4
 }
